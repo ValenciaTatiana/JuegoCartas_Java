@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -57,16 +56,14 @@ public class FrmJuego extends JFrame{
         });
     }
 
-    // Jugador jugador1 = new Jugador();
-    // Jugador jugador2 = new Jugador();
+    Jugador jugador1 = new Jugador();
+    Jugador jugador2 = new Jugador();
 
     private void repartirCartas() {
-        Carta carta = new Carta(new Random());
-        carta.mostrar(pnlJugador1, 10, 10);
-        // jugador1.repartir();
-        // jugador1.mostrar(pnlJugador1);
-        // jugador2.repartir();
-        // jugador2.mostrar(pnlJugador2);
+        jugador1.repartir();
+        jugador1.mostrar(pnlJugador1);
+        jugador2.repartir();
+        jugador2.mostrar(pnlJugador2);
     }
 
     private void verificarJugador() {
