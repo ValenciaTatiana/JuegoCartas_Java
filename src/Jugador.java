@@ -7,6 +7,9 @@ public class Jugador {
     private int DISTANCIA = 40;
     private int MARGEN = 10;
     private int TOTAL_CARTAS = 10;
+    private int MINIMA_CANTIDAD_GRUPO = 2;
+    private String MENSAJE_PREDETERMINADO = "No se encontraron comenarios";
+    private String MENSAJE_ENCABEZADO = "se encontraron los siguientes grupos:\n";
     private Carta[] cartas = new Carta[TOTAL_CARTAS];
     private Random r = new Random();
 
@@ -27,4 +30,33 @@ public class Jugador {
         pnl.repaint();
     }
 
+    public String getGrupos() {
+        String mensaje = MENSAJE_PREDETERMINADO;
+
+        int[] contadores = new int[NombreCarta.values().length];
+        for (Carta carta : cartas) {
+            contadores[carta.getNombre().ordinal()]++;
+        }
+
+        // Verificar si hubo grupos
+        boolean hayGrupos = false;
+        for (int contador : contadores) {
+            if (contador >= MINIMA_CANTIDAD_GRUPO) {
+                hayGrupos = true;
+                break;
+            }
+        }
+
+        if (hayGrupos) {
+            mensaje = MENSAJE_ENCABEZADO;
+            int posicion = 0;
+            for (int contador : contadores) {
+                if (contador >= MINIMA_CANTIDAD_GRUPO) {
+                    mensaje += Grupo.values()[contador] + " de " + NombreCarta.values()[posicion] + "\n";
+                }
+                posicion++;
+            }
+        }
+        return mensaje;
+    }
 }

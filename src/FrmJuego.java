@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
@@ -11,6 +12,7 @@ import javax.swing.WindowConstants;
 public class FrmJuego extends JFrame{
 
     JPanel pnlJugador1, pnlJugador2;
+    JTabbedPane tpJugadores;
 
     public FrmJuego(){
         setTitle("Jueguemos al Apuntado!!");
@@ -26,7 +28,7 @@ public class FrmJuego extends JFrame{
         btnVerificar.setBounds(120, 10, 100, 25);
         getContentPane().add(btnVerificar);
 
-        JTabbedPane tpJugadores = new JTabbedPane();
+        tpJugadores = new JTabbedPane();
         tpJugadores.setBounds(10, 40, 656, 150);
         getContentPane().add(tpJugadores);
 
@@ -67,6 +69,14 @@ public class FrmJuego extends JFrame{
     }
 
     private void verificarJugador() {
-
+        int pestañaSeleccionada = tpJugadores.getSelectedIndex();
+        switch (pestañaSeleccionada) {
+            case 0:
+                JOptionPane.showMessageDialog(null, jugador1.getGrupos());
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, jugador2.getGrupos());
+                break;
+        }
     }
 }

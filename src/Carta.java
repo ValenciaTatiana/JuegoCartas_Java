@@ -30,6 +30,8 @@ public class Carta {
             posicion = 13;
         }
         return NombreCarta.values()[posicion - 1];
+
+        
     }
 
     public void mostrar(JPanel pnl, int x, int y) {
