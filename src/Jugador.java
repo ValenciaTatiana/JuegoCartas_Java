@@ -9,7 +9,7 @@ public class Jugador {
     private int TOTAL_CARTAS = 10;
     private int MINIMA_CANTIDAD_GRUPO = 2;
     private String MENSAJE_PREDETERMINADO = "No se encontraron comenarios";
-    private String MENSAJE_ENCABEZADO = "se encontraron los siguientes grupos:\n";
+    private String MENSAJE_ENCABEZADO = "Se encontraron los siguientes grupos:\n";
     private Carta[] cartas = new Carta[TOTAL_CARTAS];
     private Random r = new Random();
 
@@ -58,5 +58,13 @@ public class Jugador {
             }
         }
         return mensaje;
+    }
+
+    public int calcularPuntaje() {
+        int puntaje = 0;
+        for (Carta carta : cartas) {
+            puntaje += carta.getValor();
+        }
+        return puntaje;
     }
 }

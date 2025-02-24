@@ -70,13 +70,22 @@ public class FrmJuego extends JFrame{
 
     private void verificarJugador() {
         int pestañaSeleccionada = tpJugadores.getSelectedIndex();
-        switch (pestañaSeleccionada) {
-            case 0:
-                JOptionPane.showMessageDialog(null, jugador1.getGrupos());
-                break;
-            case 1:
-                JOptionPane.showMessageDialog(null, jugador2.getGrupos());
-                break;
+        int puntaje;
+        String jugadorNombre;
+        String grupos;
+        
+        if (pestañaSeleccionada == 0) {
+            puntaje = jugador1.calcularPuntaje();
+            jugadorNombre = "Andrés Gutiérrez";
+            grupos = jugador1.getGrupos();
+        } else {
+            puntaje = jugador2.calcularPuntaje();
+            jugadorNombre = "Tatiana Cuadros";
+            grupos = jugador2.getGrupos();
         }
+    
+        String mensaje = "Puntaje de " + jugadorNombre + ": " + puntaje + "\n\n" + grupos;
+    
+        JOptionPane.showMessageDialog(null, mensaje, "Información del Jugador", JOptionPane.INFORMATION_MESSAGE);
     }
 }

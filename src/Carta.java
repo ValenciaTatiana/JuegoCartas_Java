@@ -30,8 +30,6 @@ public class Carta {
             posicion = 13;
         }
         return NombreCarta.values()[posicion - 1];
-
-        
     }
 
     public void mostrar(JPanel pnl, int x, int y) {
@@ -41,5 +39,18 @@ public class Carta {
         JLabel lbl = new JLabel(imagen);
         lbl.setBounds(x, y, imagen.getIconWidth(), imagen.getIconHeight());
         pnl.add(lbl);
+    }
+
+    public int getValor() {
+        NombreCarta nombre = getNombre();
+        switch (nombre) {
+            case AS:
+            case JACK:
+            case QUEEN:
+            case KING:
+                return 10;
+            default:
+                return nombre.ordinal() + 1;
+        }
     }
 }
