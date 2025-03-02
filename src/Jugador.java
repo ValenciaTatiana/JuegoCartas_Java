@@ -63,14 +63,13 @@ public class Jugador {
     public String getEscaleras() {
         String mensaje = MENSAJE_ESCALERAS;
         String mensajeNoEscaleras = MENSAJE_NO_ESCALERAS;
-        boolean hayEscaleras = false;
-        boolean hayPintasSinEscaleras = false;
-
+        boolean hayEscalerasGenerales = false; 
+        
         for (Pinta pinta : Pinta.values()) {
             boolean[] cartasEnEscalera = new boolean[NombreCarta.values().length];
             boolean escaleraEncontrada = false;
             String escaleraActual = "";
-
+    
             for (NombreCarta nombre : NombreCarta.values()) {
                 for (Carta carta : cartas) {
                     if (carta.getPinta() == pinta && carta.getNombre() == nombre) {
@@ -79,40 +78,40 @@ public class Jugador {
                 }
             }
 
-            for (int i = 0; i <= cartasEnEscalera.length - 2; i++) {
+            for (int i = 0; i < cartasEnEscalera.length - 1; i++) {
                 if (cartasEnEscalera[i]) {
                     if (escaleraActual.isEmpty()) {
                         escaleraActual = NombreCarta.values()[i].name();
                     } else {
                         escaleraActual += ", " + NombreCarta.values()[i].name();
                     }
-
+    
                     if (escaleraActual.split(", ").length >= 2) { 
                         escaleraEncontrada = true;
                     }
                 } else {
                     if (escaleraEncontrada) {
                         mensaje += "Pinta " + pinta.name() + ": " + escaleraActual + "\n";
-                        hayEscaleras = true;
+                        hayEscalerasGenerales = true;
                     }
                     escaleraActual = "";
                     escaleraEncontrada = false;
                 }
             }
-
+    
             if (escaleraEncontrada) {
                 mensaje += "Pinta " + pinta.name() + ": " + escaleraActual + "\n";
-                hayEscaleras = true;
+                hayEscalerasGenerales = true;
             }
 
-            if (!hayEscaleras) {
-                hayPintasSinEscaleras = true;
+            if (!escaleraEncontrada && !hayEscalerasGenerales) {
                 mensajeNoEscaleras += pinta.name() + "\n";
             }
         }
-        return (hayEscaleras ? mensaje + "\n" : "") + (hayPintasSinEscaleras ? mensajeNoEscaleras : "");
+    
+        return (hayEscalerasGenerales ? mensaje + "\n" : "") + (mensajeNoEscaleras.trim().isEmpty() ? "" : mensajeNoEscaleras);
     }
-
+    
     private boolean perteneceAEscalera(Carta carta) {
         for (Pinta pinta : Pinta.values()) {
             boolean[] cartasEnEscalera = new boolean[NombreCarta.values().length];
@@ -143,15 +142,6 @@ public class Jugador {
         return false;
     }
 
-    private boolean perteneceAGrupo(Carta carta) {
-        int[] contadores = new int[NombreCarta.values().length];
-
-        for (Carta c : cartas) {
-            contadores[c.getNombre().ordinal()]++;
-        }
-        return contadores[carta.getNombre().ordinal()] >= MINIMA_CANTIDAD_GRUPO;
-    }
-
     private int calcularValorCarta(NombreCarta nombre) {
         if (nombre == NombreCarta.AS || nombre == NombreCarta.JACK ||
                 nombre == NombreCarta.QUEEN || nombre == NombreCarta.KING) {
@@ -165,7 +155,7 @@ public class Jugador {
         int puntaje = 0;
 
         for (Carta carta : cartas) {
-            if (!perteneceAEscalera(carta) && !perteneceAGrupo(carta)) {
+            if (!perteneceAEscalera(carta)) {
                 puntaje += calcularValorCarta(carta.getNombre());
             }
         }
