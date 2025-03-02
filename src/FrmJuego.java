@@ -73,18 +73,21 @@ public class FrmJuego extends JFrame{
         int puntaje;
         String jugadorNombre;
         String grupos;
+        String escaleras;
         
         if (pestañaSeleccionada == 0) {
             puntaje = jugador1.calcularPuntaje();
             jugadorNombre = "Andrés Gutiérrez";
             grupos = jugador1.getGrupos();
+            escaleras = jugador1.getEscaleras();
         } else {
             puntaje = jugador2.calcularPuntaje();
             jugadorNombre = "Tatiana Cuadros";
             grupos = jugador2.getGrupos();
+            escaleras = jugador2.getEscaleras();
         }
     
-        String mensaje = "Puntaje de " + jugadorNombre + ": " + puntaje + "\n\n" + grupos;
+        String mensaje = "Puntaje de " + jugadorNombre + ": " + puntaje + "\n\n" + grupos + "\n" + escaleras;
     
         JOptionPane.showMessageDialog(null, mensaje, "Información del Jugador", JOptionPane.INFORMATION_MESSAGE);
     }
